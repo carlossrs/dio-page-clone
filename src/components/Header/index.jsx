@@ -39,7 +39,7 @@ const Header = ({ autenticado }) => {
             <UserPicture src={avatar} />
           ) : (
             <>
-              <MenuRight href="/">Home</MenuRight>
+              <MenuRight onClick={() => navigate("/")}>Home</MenuRight>
               <Button title="Entrar" onClick={() => navigate("/login")} />
               <Button title="Cadastrar" onClick={() => navigate("/signup")} />
             </>
