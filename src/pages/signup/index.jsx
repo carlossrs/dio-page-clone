@@ -28,7 +28,7 @@ const SignUp = () => {
   });
 
   const onSubmit = () => {
-    console.log("Cadastro finalizado");
+    alert("Cadastro finalizado");
   };
 
   return (

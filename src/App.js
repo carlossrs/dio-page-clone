@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Feed } from "./pages/feed";
 
 import { Home } from "./pages/home";
@@ -8,7 +8,7 @@ import { GlobalStyle } from "./styles/global";
 
 function App() {
   return (
-    <Router>
+    <>
       <GlobalStyle />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -16,7 +16,7 @@ function App() {
         <Route path="/feed" element={<Feed />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
-    </Router>
+    </>
   );
 }
 
