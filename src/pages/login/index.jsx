@@ -1,11 +1,12 @@
-import { useNavigate } from "react-router-dom";
-import { MdEmail, MdLock } from "react-icons/md";
-import { Button } from "../../components/Button";
-import { Header } from "../../components/Header";
-import { Input } from "../../components/Input";
-import { api } from "../../services/api";
+import { useNavigate } from 'react-router-dom';
+import { MdEmail, MdLock } from 'react-icons/md';
+import { Button } from '../../components/Button';
+import { Header } from '../../components/Header';
+import { Input } from '../../components/Input';
+// import { api } from '../../services/api';
+import data from '../../services/db.json';
 
-import { useForm } from "react-hook-form";
+import { useForm } from 'react-hook-form';
 
 import {
   Container,
@@ -17,7 +18,7 @@ import {
   CriarText,
   Row,
   Wrapper,
-} from "./styles";
+} from './styles';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -27,24 +28,22 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    reValidateMode: "onChange",
-    mode: "onChange",
+    reValidateMode: 'onChange',
+    mode: 'onChange',
   });
 
   const onSubmit = async (formData) => {
     try {
-      const { data } = await api.get(
-        `/users?email=${formData.email}&senha=${formData.senha}`
-      );
+      const [email, senha] = [formData.email, formData.senha];
 
-      if (data.length && data[0].id) {
-        navigate("/feed");
-        return;
-      }
-
-      alert("Usuário ou senha inválido");
+      data.users.forEach((element) => {
+        if (element.email === email && element.senha === senha) {
+          navigate('/feed');
+          return;
+        }
+      });
     } catch (e) {
-      console.log("errors", errors);
+      console.log('errors', errors);
     }
   };
 
@@ -64,25 +63,25 @@ const Login = () => {
             <SubtitleLogin>Faça seu login e make the change._</SubtitleLogin>
             <form onSubmit={handleSubmit(onSubmit)}>
               <Input
-                placeholder="E-mail"
+                placeholder='E-mail (email@email.com)'
                 leftIcon={<MdEmail />}
-                name="email"
+                name='email'
                 control={control}
               />
               {errors.email && <span>E-mail é obrigatório</span>}
               <Input
-                type="password"
-                placeholder="Senha"
+                type='password'
+                placeholder='Senha (123456)'
                 leftIcon={<MdLock />}
-                name="senha"
+                name='senha'
                 control={control}
               />
               {errors.senha && <span>Senha é obrigatório</span>}
-              <Button title="Entrar" variant="secondary" type="submit" />
+              <Button title='Entrar' variant='secondary' type='submit' />
             </form>
             <Row>
               <EsqueciText>Esqueci minha senha</EsqueciText>
-              <CriarText href="/signup">Criar Conta</CriarText>
+              <CriarText href='/signup'>Criar Conta</CriarText>
             </Row>
           </Wrapper>
         </Column>
